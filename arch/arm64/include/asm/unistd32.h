@@ -908,3 +908,6 @@ __SYSCALL(__NR_process_mrelease, sys_process_mrelease)
  * Please add new compat syscalls above this comment and update
  * __NR_compat_syscalls in asm/unistd.h.
  */
+
+#define __NR_mydouble 449
+__SYSCALL(__NR_mydouble, sys_mydouble)
