@@ -1,3 +1,4 @@
+#include "linux/uaccess.h"
 #include <linux/syscalls.h>
 #include <linux/sched.h>
 
@@ -15,4 +16,24 @@ SYSCALL_DEFINE1(mydouble, int, value)
     printk("Pids: [cur: %d, parent: %d]\n", curr->pid, curr->parent->pid);
 
     return result;
+}
+
+SYSCALL_DEFINE2(get_children, pid_t*, pids, int, max_count)
+{
+	struct task_struct *c = NULL;
+    const pid_t *src = NULL;
+    const struct task_struct* curr = current;
+    int n = 0;
+
+	list_for_each_entry(c, &curr->children, sibling) {
+        if (n >= max_count) {
+            return -ENOMEM;
+        }
+        src = &c->pid;
+        if (copy_to_user(pids+n, src, sizeof(pid_t))) {
+            return -EFAULT;
+        }
+        n++;
+	}
+    return n;
 }
