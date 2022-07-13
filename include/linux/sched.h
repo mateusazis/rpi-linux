@@ -67,6 +67,7 @@ struct sighand_struct;
 struct signal_struct;
 struct task_delay_info;
 struct task_group;
+struct kfifo_wrapper;
 
 /*
  * Task state bitmask. NOTE! These bits are also
@@ -965,6 +966,8 @@ struct task_struct {
 	struct list_head		children;
 	struct list_head		sibling;
 	struct task_struct		*group_leader;
+
+	struct kfifo *sent_data;
 
 	/*
 	 * 'ptraced' is the list of tasks this task is using ptrace() on.

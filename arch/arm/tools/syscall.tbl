@@ -464,3 +464,5 @@
 448	common	process_mrelease		sys_process_mrelease
 449	common	mydouble		sys_mydouble
 450	common	get_children		sys_get_children
+451	common	my_send_data		sys_my_send_data
+452	common	my_read_data		sys_my_read_data

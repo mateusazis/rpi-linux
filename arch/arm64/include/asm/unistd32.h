@@ -911,5 +911,12 @@ __SYSCALL(__NR_process_mrelease, sys_process_mrelease)
 
 #define __NR_mydouble 449
 __SYSCALL(__NR_mydouble, sys_mydouble)
+
 #define __NR_get_children 450
 __SYSCALL(__NR_get_children, sys_get_children)
+
+#define __NR_my_send_data 451
+__SYSCALL(__NR_my_send_data, sys_my_send_data)
+
+#define __NR_my_read_data 452
+__SYSCALL(__NR_my_read_data, sys_my_read_data)
