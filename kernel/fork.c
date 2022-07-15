@@ -174,8 +174,8 @@ static inline struct task_struct *alloc_task_struct_node(int node)
 
 static inline void free_task_struct(struct task_struct *tsk)
 {
-	// kfifo_free(&tsk->sent_data);
-	// vfree(tsk->sent_data);
+	kfifo_free(tsk->sent_data);
+	vfree(tsk->sent_data);
 	kmem_cache_free(task_struct_cachep, tsk);
 }
 #endif
@@ -2341,12 +2341,12 @@ static __latent_entropy struct task_struct *copy_process(
 		p->exit_signal = args->exit_signal;
 	}
 
-	// p->sent_data = vmalloc(sizeof(p->sent_data));
-	// if (kfifo_alloc(&p->sent_data->fifo, 2048, GFP_KERNEL)) 
-	// {
-	// 	retval = -ENOMEM;
-	// 	goto bad_fork_cancel_cgroup;
-	// }
+	p->sent_data = vmalloc(sizeof(p->sent_data));
+	if (kfifo_alloc(p->sent_data, 2048, GFP_KERNEL)) 
+	{
+		retval = -ENOMEM;
+		goto bad_fork_cancel_cgroup;
+	}
 
 	klp_copy_process(p);
 

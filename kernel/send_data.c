@@ -1,7 +1,7 @@
 
 #include <linux/syscalls.h>
 #include <uapi/asm/send_data.h>
-#include <linux/kfifo_wrapper.h>
+#include <linux/kfifo.h>
 
 
 
@@ -34,10 +34,6 @@ SYSCALL_DEFINE3(my_read_data, struct process_identifier __user *, process_id, vo
 	
 	if ((ret = kfifo_to_user(current->sent_data, userData, dataSize, &copied))) {
 		return ret;
-	}
-
-	if (copied < dataSize) {
-		return -ENOMEM;
 	}
 	
 	return 0;

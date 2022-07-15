@@ -67,7 +67,6 @@ struct sighand_struct;
 struct signal_struct;
 struct task_delay_info;
 struct task_group;
-struct kfifo_wrapper;
 
 /*
  * Task state bitmask. NOTE! These bits are also
